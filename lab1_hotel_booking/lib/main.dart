@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
+import 'data/seed.dart';
+import 'models/countdown.dart';
+import 'utils/format.dart';
+
 
 void main() {
+  final stays = seedStays();
+  debugPrint('Stays: ${stays.length}');
+  for(final s in stays){
+    // R5: достаём два числа из record
+    final (:taken, :free) = s.places;
+    // R9: исчерпывающий switch по sealed-классу
+    final countdown = switch (s.countdown) {
+      Upcoming(:final left) => 'in ${formatDuration(left)}',
+      Started(:final since) => 'started ${formatDuration(since)} ago',
+      Ended() => 'ended',
+    };
+    debugPrint('${s.id} | ${formatDateTime(s.checkIn)} | ''$taken booked, $free free | full: ${s.isFull} | $countdown');
+  }
+  // обязательное: длина самого длинного названия
+  debugPrint('s1 title length: ${stays.first.title.length}');
+
+  // R1: список гостей нельзя изменить снаружи
+  try {
+    stays.first.guests.add('Hacker');
+  } on UnsupportedError {
+    debugPrint('guests is read-only: OK');
+  }
+  final c = Countdown.until(
+    DateTime(2026, 1, 1, 14),
+    now: DateTime(2026, 1, 1, 16),
+  );
+  debugPrint('2 h after check-in: ${c is Started ? 'Started' : 'wrong'}');
   runApp(const MyApp());
 }
 

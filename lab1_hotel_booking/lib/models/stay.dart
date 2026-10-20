@@ -1,7 +1,8 @@
 import 'countdown.dart';
 import 'room_type.dart';
-class Stay{
-  // R1: immutable — все поля final, конструктор const
+
+// R1: immutable — все поля final, конструктор const
+class Stay {
   const Stay({
     required this.id,
     required this.title,
@@ -13,21 +14,21 @@ class Stay{
     this.partner = false,
     this.description,
     this.favourite = false,
-  }): _guests = guests;
+  }) : _guests = guests;
 
   // R3: значения по умолчанию для нового предложения
-  Stay.empty():
-    id = '',
-    title = '',
-    type = RoomType.standard,
-    checkIn = DateTime.now().add(const Duration(days: 1)),
-    rooms = 10,
-    place = '',
-    _guests = const [],
-    partner = false,
-    description = null,
-    favourite = false;
-  
+  Stay.empty()
+      : id = '',
+        title = '',
+        type = RoomType.standard,
+        checkIn = DateTime.now().add(const Duration(days: 1)),
+        rooms = 10,
+        place = '',
+        _guests = const [],
+        partner = false,
+        description = null,
+        favourite = false;
+
   final String id;
   final String title;
   final RoomType type;
@@ -52,6 +53,10 @@ class Stay{
   // R5: record из двух чисел
   ({int taken, int free}) get places => (taken: count, free: free);
 
+  // R9: какое сейчас состояние отсчёта
+  Countdown get countdown => Countdown.until(checkIn);
+
+  // R1: копия с изменениями
   Stay copyWith({
     String? title,
     RoomType? type,
@@ -62,7 +67,7 @@ class Stay{
     bool? partner,
     String? description,
     bool? favourite,
-  }){
+  }) {
     return Stay(
       id: id,
       title: title ?? this.title,
@@ -76,7 +81,9 @@ class Stay{
       favourite: favourite ?? this.favourite,
     );
   }
+
   // забронировать и отменить — тоже через копию
   Stay book(String name) => copyWith(guests: [..._guests, name]);
-  Stay cancel(String name) => copyWith(guests: _guests.where((g) => g != name).toList());
+  Stay cancel(String name) =>
+      copyWith(guests: _guests.where((g) => g != name).toList());
 }
