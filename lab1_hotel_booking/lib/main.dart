@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/seed.dart';
+import 'widgets/empty_state.dart';
 import 'widgets/stay_card.dart';
 
 
@@ -35,14 +36,12 @@ class _MyAppState extends State<MyApp>{
       ),
       themeMode: _themeMode,
       home: Scaffold(
-        body: SafeArea(
-          child:ListView(
-            padding: const EdgeInsets.all(8),
-            children: [
-              for (final s in seedStays())
-                StayCard(stay: s, onTap: () {}, onToggleFavourite: () {}),
-            ],
-          )),
+        body: EmptyState(
+          icon: Icons.favorite_border,
+          message: 'No favourites yet',
+          actionLabel: 'Browse stays',
+          onAction: () {},
+        ), 
       )
     );
   }
