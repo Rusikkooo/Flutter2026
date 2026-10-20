@@ -1,3 +1,4 @@
+// enum типов номеров: label, icon, цвет
 import 'package:flutter/material.dart';
 
 enum RoomType {
