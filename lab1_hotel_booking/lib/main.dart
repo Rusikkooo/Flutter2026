@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'data/seed.dart';
+import 'widgets/stay_card.dart';
 
 
 void main() => runApp(const MyApp());
@@ -32,9 +34,16 @@ class _MyAppState extends State<MyApp>{
         ),
       ),
       themeMode: _themeMode,
-      home: const Scaffold(
-        body: Center(child: Text('Hotel Booking'),),
-      ),
+      home: Scaffold(
+        body: SafeArea(
+          child:ListView(
+            padding: const EdgeInsets.all(8),
+            children: [
+              for (final s in seedStays())
+                StayCard(stay: s, onTap: () {}, onToggleFavourite: () {}),
+            ],
+          )),
+      )
     );
   }
 }
