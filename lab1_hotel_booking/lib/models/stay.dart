@@ -18,16 +18,16 @@ class Stay {
 
   // R3: значения по умолчанию для нового предложения
   Stay.empty()
-      : id = '',
-        title = '',
-        type = RoomType.standard,
-        checkIn = DateTime.now().add(const Duration(days: 1)),
-        rooms = 10,
-        place = '',
-        _guests = const [],
-        partner = false,
-        description = null,
-        favourite = false;
+    : id = '',
+      title = '',
+      type = RoomType.standard,
+      checkIn = DateTime.now().add(const Duration(days: 1)),
+      rooms = 10,
+      place = '',
+      _guests = const [],
+      partner = false,
+      description = null,
+      favourite = false;
 
   final String id;
   final String title;

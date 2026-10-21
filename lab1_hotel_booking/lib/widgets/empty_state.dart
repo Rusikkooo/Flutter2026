@@ -13,10 +13,9 @@ class EmptyState extends StatelessWidget {
   final String message;
   final String? actionLabel; // текст кнопки — необязательный
   final VoidCallback? onAction; // действие кнопки — необязательное
-  
+
   @override
   Widget build(BuildContext context) {
-
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
 
@@ -33,26 +32,18 @@ class EmptyState extends StatelessWidget {
               radius: 44,
               backgroundColor: scheme.secondaryContainer,
               foregroundColor: scheme.onSecondaryContainer,
-              child:Icon(icon,size: 40,)
+              child: Icon(icon, size: 40),
             ),
             const SizedBox(height: 16),
-            Text(
-              message,
-              style: text.titleMedium,
-              textAlign: TextAlign.center,
-            ),
+            Text(message, style: text.titleMedium, textAlign: TextAlign.center),
             // R23: кнопка только если переданы и текст, и действие
             if (label != null && action != null) ...[
               const SizedBox(height: 16),
-              OutlinedButton(
-                onPressed: action,
-                child: Text(label),
-              ),
-            ]
+              OutlinedButton(onPressed: action, child: Text(label)),
+            ],
           ],
         ),
-        ),
-
+      ),
     );
   }
-} 
+}

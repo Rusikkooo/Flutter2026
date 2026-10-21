@@ -91,15 +91,15 @@ class _FormScreenState extends State<FormScreen> {
 
   // текущие значения формы одним record
   _FormValues get _values => (
-        title: _title.text,
-        place: _place.text,
-        rooms: _rooms.text,
-        description: _description.text,
-        type: _type,
-        partner: _partner,
-        date: _date,
-        time: _time,
-      );
+    title: _title.text,
+    place: _place.text,
+    rooms: _rooms.text,
+    description: _description.text,
+    type: _type,
+    partner: _partner,
+    date: _date,
+    time: _time,
+  );
 
   // R30: форма «грязная», если хоть что-то отличается от начала
   bool get _dirty => _values != _start;
@@ -130,7 +130,9 @@ class _FormScreenState extends State<FormScreen> {
     if (picked == null || !mounted) return;
     setState(() {
       _time = picked;
-      _timeText.text = formatTime(DateTime(0, 1, 1, picked.hour, picked.minute));
+      _timeText.text = formatTime(
+        DateTime(0, 1, 1, picked.hour, picked.minute),
+      );
     });
   }
 
@@ -265,7 +267,6 @@ class _FormScreenState extends State<FormScreen> {
                   value: _partner,
                   onChanged: (v) => setState(() => _partner = v),
                 ), // SwitchListTile
-
                 // R34: место обязательно; при mode — ссылка с ://
                 TextFormField(
                   controller: _place,
@@ -323,7 +324,12 @@ class _FormScreenState extends State<FormScreen> {
                           if (t == null) return 'Pick a time';
                           if (_isNew && d != null) {
                             final at = DateTime(
-                                d.year, d.month, d.day, t.hour, t.minute);
+                              d.year,
+                              d.month,
+                              d.day,
+                              t.hour,
+                              t.minute,
+                            );
                             if (!at.isAfter(DateTime.now())) {
                               return 'Must be in the future';
                             }

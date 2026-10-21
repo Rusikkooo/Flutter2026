@@ -101,7 +101,6 @@ class _StaysTabState extends State<StaysTab> {
             ), // InputDecoration
           ), // TextField
         ), // Padding
-
         // R21: ряд чипов, прокрутка вбок
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -127,7 +126,6 @@ class _StaysTabState extends State<StaysTab> {
             ],
           ), // Row
         ), // SingleChildScrollView
-
         // R21: фильтр прошедших
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
@@ -141,7 +139,6 @@ class _StaysTabState extends State<StaysTab> {
             ), // FilterChip
           ), // Align
         ), // Padding
-
         // R21: список занимает всё оставшееся место
         Expanded(
           child: visible.isEmpty
@@ -161,14 +158,13 @@ class _StaysTabState extends State<StaysTab> {
                         padding: const EdgeInsets.fromLTRB(8, 4, 8, 88),
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 360,
-                          mainAxisExtent: 124,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                        ), // SliverGridDelegateWithMaxCrossAxisExtent
+                              maxCrossAxisExtent: 360,
+                              mainAxisExtent: 124,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ), // SliverGridDelegateWithMaxCrossAxisExtent
                         itemCount: visible.length,
-                        itemBuilder: (context, index) =>
-                            _card(visible[index]),
+                        itemBuilder: (context, index) => _card(visible[index]),
                       ); // GridView.builder
                     }
                     // R20: телефон → обычный список

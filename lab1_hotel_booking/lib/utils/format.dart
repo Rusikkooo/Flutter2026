@@ -1,7 +1,17 @@
 // R8: свои названия месяцев — без пакетов
 const _months = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 // 25 Oct
@@ -13,6 +23,7 @@ String formatTime(DateTime d) {
   final m = d.minute.toString().padLeft(2, '0');
   return '$h:$m';
 }
+
 // 25 Oct, 14:05
 String formatDateTime(DateTime d) => '${formatDate(d)}, ${formatTime(d)}';
 

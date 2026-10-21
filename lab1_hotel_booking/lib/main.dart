@@ -28,23 +28,19 @@ class _MyAppState extends State<MyApp> {
       title: 'Hotel Booking',
       debugShowCheckedModeBanner: false,
       // R22: светлая тема
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: _seed),
-      ), 
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: _seed)),
       // R22: тёмная тема из того же seed
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: _seed,
           brightness: Brightness.dark,
         ),
-      ), 
+      ),
       themeMode: _themeMode,
       // R25: routes держит только оболочку
       routes: {
-        Routes.shell: (context) => Shell(
-              themeMode: _themeMode,
-              onThemeModeChanged: _setThemeMode,
-            ),
+        Routes.shell: (context) =>
+            Shell(themeMode: _themeMode, onThemeModeChanged: _setThemeMode),
       },
       // R25: детали и форма — через onGenerateRoute
       onGenerateRoute: Routes.onGenerateRoute,

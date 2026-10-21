@@ -321,10 +321,7 @@ class _DetailScreenState extends State<DetailScreen> {
             // R29: содержимое вкладок занимает всё оставшееся место
             Expanded(
               child: TabBarView(
-                children: [
-                  _buildAbout(),
-                  _buildGuests(),
-                ],
+                children: [_buildAbout(), _buildGuests()],
               ), // TabBarView
             ), // Expanded
           ],

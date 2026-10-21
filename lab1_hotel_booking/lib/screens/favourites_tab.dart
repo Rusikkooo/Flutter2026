@@ -4,7 +4,7 @@ import '../models/stay.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/stay_card.dart';
 
-class FavouritesTab  extends StatelessWidget{
+class FavouritesTab extends StatelessWidget {
   const FavouritesTab({
     super.key,
     required this.stays,
@@ -27,21 +27,26 @@ class FavouritesTab  extends StatelessWidget{
     final favourites = stays.where((s) => s.favourite).toList();
 
     // R23: то же пустое состояние, что и в поиске
-    if(favourites.isEmpty){
-      return EmptyState(icon: Icons.favorite_border, message: 'No favourites yet', actionLabel: 'Browse stays',onAction: onBrowse,);
+    if (favourites.isEmpty) {
+      return EmptyState(
+        icon: Icons.favorite_border,
+        message: 'No favourites yet',
+        actionLabel: 'Browse stays',
+        onAction: onBrowse,
+      );
     }
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 88),
-      separatorBuilder: (context, index) => const SizedBox(height: 4), 
+      separatorBuilder: (context, index) => const SizedBox(height: 4),
       itemCount: favourites.length,
-      itemBuilder:(context, index) {
+      itemBuilder: (context, index) {
         final stay = favourites[index];
         return StayCard(
           stay: stay,
           onTap: () => onOpen(stay),
           onToggleFavourite: () => onToggleFavourite(stay),
         );
-      }
-      );
+      },
+    );
   }
 }

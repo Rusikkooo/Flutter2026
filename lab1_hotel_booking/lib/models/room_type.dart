@@ -15,11 +15,11 @@ enum RoomType {
   final IconData icon;
   // R2: исчерпывающий switch → роль из colorScheme (никаких Colors.*)
   Color color(ColorScheme scheme) => switch (this) {
-        RoomType.single => scheme.secondaryContainer,
-        RoomType.standard => scheme.primaryContainer,
-        RoomType.suite => scheme.tertiaryContainer,
-        RoomType.family => scheme.surfaceContainerHighest,
-        RoomType.deluxe => scheme.errorContainer,
-        RoomType.dorm => scheme.inversePrimary,
-      };
+    RoomType.single => scheme.secondaryContainer,
+    RoomType.standard => scheme.primaryContainer,
+    RoomType.suite => scheme.tertiaryContainer,
+    RoomType.family => scheme.surfaceContainerHighest,
+    RoomType.deluxe => scheme.errorContainer,
+    RoomType.dorm => scheme.inversePrimary,
+  };
 }

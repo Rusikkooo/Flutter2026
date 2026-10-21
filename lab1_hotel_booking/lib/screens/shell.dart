@@ -34,9 +34,7 @@ class _ShellState extends State<Shell> {
   // заменить одно предложение в списке (по id)
   void _replace(Stay updated) {
     // R7: новый список через collection for
-    final list = [
-      for (final s in _stays) s.id == updated.id ? updated : s,
-    ];
+    final list = [for (final s in _stays) s.id == updated.id ? updated : s];
     // R12: внутри setState только изменение
     setState(() => _stays = list);
   }
@@ -160,10 +158,7 @@ class _ShellState extends State<Shell> {
     };
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ), // AppBar
-
+      appBar: AppBar(title: Text(title)), // AppBar
       // R32: боковое меню
       drawer: Drawer(
         child: SafeArea(
@@ -204,7 +199,6 @@ class _ShellState extends State<Shell> {
           ), // Column
         ), // SafeArea
       ), // Drawer
-
       // все три вкладки живут одновременно, видна одна
       body: IndexedStack(
         index: _tab,
@@ -230,7 +224,6 @@ class _ShellState extends State<Shell> {
           ), // ProfileTab
         ],
       ), // IndexedStack
-
       // R23: FAB только на вкладке Stays
       floatingActionButton: _tab == 0
           ? FloatingActionButton(

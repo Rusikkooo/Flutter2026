@@ -36,14 +36,10 @@ class Routes {
     return MaterialPageRoute<void>(
       settings: settings,
       builder: (context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Not found'),
-        ), 
-        body: Center(
-          child: Text('No page for ${settings.name}'),
-        ), 
-      ), 
-    ); 
+        appBar: AppBar(title: const Text('Not found')),
+        body: Center(child: Text('No page for ${settings.name}')),
+      ),
+    );
   }
 }
 

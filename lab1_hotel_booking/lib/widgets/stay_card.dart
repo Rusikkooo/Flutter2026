@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/stay.dart';
 import '../utils/format.dart';
 
@@ -41,7 +42,7 @@ class StayCard extends StatelessWidget {
                     child: Icon(stay.type.icon),
                   ),
                   // R19: бейдж только если он есть (collection if)
-                  if(badge!=null)
+                  if (badge != null)
                     Positioned(
                       top: -6,
                       right: -10,
@@ -63,9 +64,9 @@ class StayCard extends StatelessWidget {
                                 : scheme.onSecondary,
                             fontWeight: FontWeight.bold,
                           ),
-                        )
-                      )
-                    )
+                        ),
+                      ),
+                    ),
                 ],
               ),
               const SizedBox(width: 16),
@@ -89,23 +90,22 @@ class StayCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
-                )
+                ),
               ),
               // R18: справа кнопка избранного
               IconButton(
                 onPressed: onToggleFavourite,
                 tooltip: 'Favourite',
-                icon:Icon(
+                icon: Icon(
                   stay.favourite ? Icons.favorite : Icons.favorite_border,
                 ),
                 color: stay.favourite
                     ? scheme.primary
                     : scheme.onSurfaceVariant,
-                )
+              ),
             ],
           ),
-          ),
-
+        ),
       ),
     );
   }
