@@ -10,12 +10,16 @@ class FavouritesTab  extends StatelessWidget{
     required this.stays,
     required this.onToggleFavourite,
     required this.onBrowse,
+    required this.onOpen,
   });
   // R10: весь список приходит сверху
   final List<Stay> stays;
   final ValueChanged<Stay> onToggleFavourite;
   // R28: попросить Shell переключить вкладку
   final VoidCallback onBrowse;
+
+  // R26: «открой детали» — наверх, в Shell
+  final ValueChanged<Stay> onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class FavouritesTab  extends StatelessWidget{
         final stay = favourites[index];
         return StayCard(
           stay: stay,
-          onTap: () {}, // детали — на этапе 4
+          onTap: () => onOpen(stay),
           onToggleFavourite: () => onToggleFavourite(stay),
         );
       }

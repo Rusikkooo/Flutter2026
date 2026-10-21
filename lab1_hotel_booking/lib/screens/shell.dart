@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../data/seed.dart';
 import '../models/stay.dart';
+import '../routes.dart';
 import 'favourites_tab.dart';
 import 'profile_tab.dart';
 import 'stays_tab.dart';
 
 class Shell extends StatefulWidget {
-  const Shell(
-    {
+  const Shell({
     super.key,
     required this.themeMode,
     required this.onThemeModeChanged,
-    });
-    // R11: приходит из MyApp
+  });
+
+  // R11: приходит из MyApp
   final ThemeMode themeMode;
   final ValueChanged<ThemeMode> onThemeModeChanged;
 
@@ -38,7 +39,26 @@ class _ShellState extends State<Shell> {
 
   // R28: вкладки переключает только Shell
   void _goToTab(int index) => setState(() => _tab = index);
-    // R32: About — закрыть меню и показать диалог
+
+  // R26: Shell открывает детали и передаёт аргументы
+  void _openDetail(Stay stay) {
+    Navigator.pushNamed(
+      context,
+      Routes.detail,
+      arguments: DetailArgs(stay: stay),
+    );
+  }
+
+  // R26: форма нового предложения (ответ примем на этапе 5)
+  void _openForm() {
+    Navigator.pushNamed(
+      context,
+      Routes.form,
+      arguments: const FormArgs(),
+    );
+  }
+
+  // R32: About — закрыть меню и показать диалог
   void _showAbout() {
     Navigator.pop(context); // R32: пункт сам закрывает Drawer
     showDialog<void>(
@@ -48,12 +68,12 @@ class _ShellState extends State<Shell> {
         content: const Text(
           'Hotel Booking · Lab 1, Mobile Development.\n'
           'All data lives in memory.',
-        ),
+        ), 
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
             child: const Text('OK'),
-          ),
+          ), 
         ],
       ), 
     );
@@ -68,18 +88,18 @@ class _ShellState extends State<Shell> {
         title: const Text('Reset data?'),
         content: const Text(
           'Bookings, favourites and new stays will be lost.',
-        ), // Text
+        ), 
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
             child: const Text('Cancel'),
-          ), // TextButton
+          ), 
           FilledButton(
             onPressed: () => Navigator.pop(dialogContext, true),
             child: const Text('Reset'),
-          ), // FilledButton
+          ), 
         ],
-      ), // AlertDialog
+      ), 
     );
     // R14: после await сначала mounted
     if (!mounted || ok != true) return;
@@ -87,8 +107,6 @@ class _ShellState extends State<Shell> {
     // R12: внутри setState только изменение
     setState(() => _stays = fresh);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +119,9 @@ class _ShellState extends State<Shell> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-      ),
+      ), 
+
+      // R32: боковое меню
       drawer: Drawer(
         child: SafeArea(
           child: Column(
@@ -149,23 +169,26 @@ class _ShellState extends State<Shell> {
           StaysTab(
             stays: _stays,
             onToggleFavourite: _toggleFavourite,
-          ), 
+            onOpen: _openDetail, // R26
+          ), // StaysTab
           FavouritesTab(
             stays: _stays,
             onToggleFavourite: _toggleFavourite,
+            onOpen: _openDetail, // R26
             onBrowse: () => _goToTab(0), // R28
           ), 
+          // R11: дальше вниз — в профиль
           ProfileTab(
             themeMode: widget.themeMode,
             onThemeModeChanged: widget.onThemeModeChanged,
-          ),
+          ), 
         ],
-      ), // IndexedStack
+      ), 
 
       // R23: FAB только на вкладке Stays
       floatingActionButton: _tab == 0
           ? FloatingActionButton(
-              onPressed: () {}, // форма — на этапе 5
+              onPressed: _openForm,
               tooltip: 'Add stay',
               child: const Icon(Icons.add),
             ) 

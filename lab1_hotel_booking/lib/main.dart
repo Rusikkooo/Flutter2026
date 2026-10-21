@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'routes.dart';
 import 'screens/shell.dart';
 
 void main() => runApp(const MyApp());
@@ -35,14 +36,19 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(
           seedColor: _seed,
           brightness: Brightness.dark,
-        ), 
+        ),
       ), 
       themeMode: _themeMode,
-      // R11: режим темы и способ его поменять уходят вниз
-      home: Shell(
-        themeMode: _themeMode,
-        onThemeModeChanged: _setThemeMode,
-      ),
-    ); 
+      // R25: routes держит только оболочку
+      routes: {
+        Routes.shell: (context) => Shell(
+              themeMode: _themeMode,
+              onThemeModeChanged: _setThemeMode,
+            ),
+      },
+      // R25: детали и форма — через onGenerateRoute
+      onGenerateRoute: Routes.onGenerateRoute,
+      onUnknownRoute: Routes.onUnknownRoute,
+    );
   }
 }

@@ -10,6 +10,7 @@ class StaysTab extends StatefulWidget {
     super.key,
     required this.stays,
     required this.onToggleFavourite,
+    required this.onOpen,
   });
 
   // R10: данные приходят сверху
@@ -17,8 +18,12 @@ class StaysTab extends StatefulWidget {
   // R10: изменения уходят наверх
   final ValueChanged<Stay> onToggleFavourite;
 
+  // R26: «открой детали» — тоже наверх, в Shell
+  final ValueChanged<Stay> onOpen;
+
   @override
   State<StaysTab> createState() => _StaysTabState();
+
 }
 
 class _StaysTabState extends State<StaysTab> {
@@ -149,7 +154,7 @@ class _StaysTabState extends State<StaysTab> {
                     final stay = visible[index];
                     return StayCard(
                       stay: stay,
-                      onTap: () {}, // детали — на этапе 3
+                      onTap: () => widget.onOpen(stay),
                       onToggleFavourite: () => widget.onToggleFavourite(stay),
                     ); // StayCard
                   },
