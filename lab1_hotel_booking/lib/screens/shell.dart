@@ -7,7 +7,15 @@ import 'profile_tab.dart';
 import 'stays_tab.dart';
 
 class Shell extends StatefulWidget {
-  const Shell({super.key});
+  const Shell(
+    {
+    super.key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+    });
+    // R11: приходит из MyApp
+  final ThemeMode themeMode;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
 
   @override
   State<Shell> createState() => _ShellState();
@@ -57,7 +65,10 @@ class _ShellState extends State<Shell> {
             onToggleFavourite: _toggleFavourite,
             onBrowse: () => _goToTab(0), // R28
           ), 
-          const ProfileTab(),
+          ProfileTab(
+            themeMode: widget.themeMode,
+            onThemeModeChanged: widget.onThemeModeChanged,
+          ),
         ],
       ), // IndexedStack
 
