@@ -26,7 +26,8 @@ class Shell extends StatefulWidget {
 class _ShellState extends State<Shell> {
   // R10: список и профиль живут в State оболочки
   List<Stay> _stays = seedStays();
-  Profile _profile = const Profile.empty();
+  // Profile _profile = const Profile.empty();
+  Profile _profile = const Profile(name: 'Ruslan', group: 'SE-2301');
   // какая вкладка открыта: 0 Stays, 1 Favourites, 2 Profile
   int _tab = 0;
 
@@ -141,6 +142,8 @@ class _ShellState extends State<Shell> {
     setState(() {
       _stays = fresh;
       _profile = const Profile.empty(); // R32: очистить профиль
+      
+
     });
   }
 
