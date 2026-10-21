@@ -83,13 +83,16 @@ class _ShellState extends State<Shell> {
     );
   }
 
-  // R26: форма нового предложения (ответ примем на этапе 5)
-  void _openForm() {
-    Navigator.pushNamed(
+    // CHANGED: R27 — ждём Stay из формы, проверяем null и mounted
+  Future<void> _openForm() async {
+    final stay = await Navigator.pushNamed<Stay>(
       context,
       Routes.form,
       arguments: const FormArgs(),
     );
+    if (stay == null || !mounted) return; // R14, R27
+    final list = [..._stays, stay];
+    setState(() => _stays = list); // R12
   }
 
   // R32: About — закрыть меню и показать диалог
