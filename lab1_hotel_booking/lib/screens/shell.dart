@@ -34,6 +34,12 @@ class _ShellState extends State<Shell>{
         stays: _stays,
         onToggleFavourite: _toggleFavourite,
       ),
+      // R23: FAB откроет форму (на этапе 4)
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Add stay',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
