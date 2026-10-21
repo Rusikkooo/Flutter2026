@@ -26,8 +26,8 @@ class Shell extends StatefulWidget {
 class _ShellState extends State<Shell> {
   // R10: список и профиль живут в State оболочки
   List<Stay> _stays = seedStays();
-  // Profile _profile = const Profile.empty();
-  Profile _profile = const Profile(name: 'Ruslan', group: 'SE-2301');
+  // CHANGED: временное имя убрано — профиль заполняется на вкладке Profile
+  Profile _profile = const Profile.empty();
   // какая вкладка открыта: 0 Stays, 1 Favourites, 2 Profile
   int _tab = 0;
 
@@ -66,6 +66,9 @@ class _ShellState extends State<Shell> {
   // R28: вкладки переключает только Shell
   void _goToTab(int index) => setState(() => _tab = index);
 
+  // NEW: R10 — профиль меняет только Shell
+  void _updateProfile(Profile profile) => setState(() => _profile = profile);
+
   // R26: Shell открывает детали и кладёт в аргументы свои колбэки
   void _openDetail(Stay stay) {
     Navigator.pushNamed(
@@ -79,11 +82,11 @@ class _ShellState extends State<Shell> {
         onDelete: _delete,
         onUpdate: _replace,
         onOpenProfile: () => _goToTab(2), // R28
-      ), // DeailArgs
+      ), // DetailArgs
     );
   }
 
-    // CHANGED: R27 — ждём Stay из формы, проверяем null и mounted
+  // CHANGED: R27 — ждём Stay из формы, проверяем null и mounted
   Future<void> _openForm() async {
     final stay = await Navigator.pushNamed<Stay>(
       context,
@@ -145,8 +148,6 @@ class _ShellState extends State<Shell> {
     setState(() {
       _stays = fresh;
       _profile = const Profile.empty(); // R32: очистить профиль
-      
-
     });
   }
 
@@ -219,8 +220,11 @@ class _ShellState extends State<Shell> {
             onOpen: _openDetail, // R26
             onBrowse: () => _goToTab(0), // R28
           ), // FavouritesTab
-          // R11: дальше вниз — в профиль
+          // CHANGED: профиль получает данные и колбэк из Shell
           ProfileTab(
+            profile: _profile,
+            stays: _stays,
+            onProfileChanged: _updateProfile,
             themeMode: widget.themeMode,
             onThemeModeChanged: widget.onThemeModeChanged,
           ), // ProfileTab

@@ -17,13 +17,11 @@ class StaysTab extends StatefulWidget {
   final List<Stay> stays;
   // R10: изменения уходят наверх
   final ValueChanged<Stay> onToggleFavourite;
-
   // R26: «открой детали» — тоже наверх, в Shell
   final ValueChanged<Stay> onOpen;
 
   @override
   State<StaysTab> createState() => _StaysTabState();
-
 }
 
 class _StaysTabState extends State<StaysTab> {
@@ -58,6 +56,15 @@ class _StaysTabState extends State<StaysTab> {
   void _clearSearch() {
     _search.clear();
     setState(() => _query = '');
+  }
+
+  // NEW: одна карточка — для списка и для сетки
+  Widget _card(Stay stay) {
+    return StayCard(
+      stay: stay,
+      onTap: () => widget.onOpen(stay),
+      onToggleFavourite: () => widget.onToggleFavourite(stay),
+    ); // StayCard
   }
 
   @override
@@ -145,20 +152,35 @@ class _StaysTabState extends State<StaysTab> {
                   actionLabel: 'Clear search',
                   onAction: _clearSearch,
                 ) // EmptyState
-              : ListView.separated(
-                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 88),
-                  itemCount: visible.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 4),
-                  itemBuilder: (context, index) {
-                    final stay = visible[index];
-                    return StayCard(
-                      stay: stay,
-                      onTap: () => widget.onOpen(stay),
-                      onToggleFavourite: () => widget.onToggleFavourite(stay),
-                    ); // StayCard
+              // NEW: R20 — список или сетка решает LayoutBuilder
+              : LayoutBuilder(
+                  builder: (context, constraints) {
+                    // R20: широкий экран → сетка, ячейка не шире 360
+                    if (constraints.maxWidth >= 600) {
+                      return GridView.builder(
+                        padding: const EdgeInsets.fromLTRB(8, 4, 8, 88),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 360,
+                          mainAxisExtent: 124,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ), // SliverGridDelegateWithMaxCrossAxisExtent
+                        itemCount: visible.length,
+                        itemBuilder: (context, index) =>
+                            _card(visible[index]),
+                      ); // GridView.builder
+                    }
+                    // R20: телефон → обычный список
+                    return ListView.separated(
+                      padding: const EdgeInsets.fromLTRB(8, 4, 8, 88),
+                      itemCount: visible.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 4),
+                      itemBuilder: (context, index) => _card(visible[index]),
+                    ); // ListView.separated
                   },
-                ), // ListView.separated
+                ), // LayoutBuilder
         ), // Expanded
       ],
     ); // Column
