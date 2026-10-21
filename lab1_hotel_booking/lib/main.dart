@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'data/seed.dart';
 import 'widgets/empty_state.dart';
 import 'widgets/stay_card.dart';
+import 'screens/shell.dart';
 
 
 void main() => runApp(const MyApp());
@@ -35,14 +36,7 @@ class _MyAppState extends State<MyApp>{
         ),
       ),
       themeMode: _themeMode,
-      home: Scaffold(
-        body: EmptyState(
-          icon: Icons.favorite_border,
-          message: 'No favourites yet',
-          actionLabel: 'Browse stays',
-          onAction: () {},
-        ), 
-      )
+      home: const Shell()
     );
   }
 }
