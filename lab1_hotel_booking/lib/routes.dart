@@ -49,8 +49,23 @@ class Routes {
 
 // R26: что получает экран деталей (колбэки добавим на этапе 4)
 class DetailArgs {
-  const DetailArgs({required this.stay});
+  const DetailArgs({
+    required this.stay,
+    required this.profileName,
+    required this.onBook,
+    required this.onCancel,
+    required this.onDelete,
+    required this.onUpdate,
+    required this.onOpenProfile,
+  });
+
   final Stay stay;
+  final String profileName; // кто бронирует; '' — профиль пуст
+  final Stay Function(Stay stay) onBook; // вернёт обновлённый Stay
+  final Stay Function(Stay stay) onCancel; // вернёт обновлённый Stay
+  final ValueChanged<Stay> onDelete;
+  final ValueChanged<Stay> onUpdate; // после формы Edit (этап 5)
+  final VoidCallback onOpenProfile; // R15: SnackBar → вкладка Profile
 }
 
 // R26: что получает форма: Stay — правка, null — новое предложение
